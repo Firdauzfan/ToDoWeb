@@ -21,7 +21,7 @@ if(isset($_POST['btn-submit'])){
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
-		<title>To do list</title>
+		<title>To Do list</title>
 
 		<link href="http://fonts.googleapis.com/css?family=Shadows+Into+Light+Two" rel="stylesheet">
 		<link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
