@@ -12,7 +12,7 @@
 	switch($as) {
 		case 'done':
 			$doneQuery = $db->prepare("
-				UPDATE items 
+				UPDATE items
 				SET done = 1
 				WHERE id = :item
 				AND user = :user
@@ -20,7 +20,7 @@
 
 			$doneQuery->execute([
 				'item' => $item,
-				'user' => $_SESSION['user_id']
+				'user' => $_SESSION['ID']
 			]);
 		break;
 
@@ -34,24 +34,25 @@
 
 			$undoneQuery->execute([
 				'item' => $item,
-				'user' => $_SESSION['user_id']
+				'user' => $_SESSION['ID']
 			]);
 		break;
 
 		case 'delete':
 			$deleteQuery = $db->prepare("
-				DELETE FROM items
+				UPDATE items
+				SET delete_status = 1
 				WHERE id = :item
 				AND user = :user
 			");
 
 			$deleteQuery->execute([
 				'item' => $item,
-				'user' => $_SESSION['user_id']
+				'user' => $_SESSION['ID']
 			]);
 		break;
 	}
 
-header('Location: index.php');
+header('Location: todo.php');
 
 ?>

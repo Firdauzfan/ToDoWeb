@@ -4,13 +4,13 @@
 	require 'parsedown.php';
 
 	# Global settings
-	$dbHost = 'host-name';
-	$dbName = 'database-name';
-	$dbUsername = 'username';
-	$dbPassword = 'password';
+	$dbHost = 'localhost';
+	$dbName = 'todo';
+	$dbUsername = 'root';
+	$dbPassword = 'root';
 
 	$parsingEnabled = false;
-	
+
 	session_start();
 
 	$_SESSION['user_id'] = 1;
