@@ -1,6 +1,3 @@
-# todo
-Easy 'to do' list in PHP. It is a fork of Codecourse's example: https://www.youtube.com/watch?v=wt3txKJCh-4
-
 # Requirements
 
 - Apache web server and PHP5 or higher
@@ -21,15 +18,3 @@ In `init.php` change this variables:
 
 - `$dbUsername` to your MySQL username.
 - `$dbPassword` to your MySQL password.
-
-## Parsedown
-
-*For more details about Parsedown, visit https://github.com/erusev/parsedown/wiki*
-
-If you want to enable [Parsedown](https://parsedown.org "Parsedown Homepage") formating on todo, just change `$parsingEnabled` variable in `init.php` to **true**.
-
-**Warning:** When Parsedown is enabled, `main-parse.css` stylesheet is used instead of `main.css`.
-
-## escape()
-
-*escape()* function is added to prevent [XSS](https://en.wikipedia.org/wiki/Cross-site_scripting "Cross-site scripting attack (redirects to Wikipedia)").
