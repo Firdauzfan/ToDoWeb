@@ -9,21 +9,14 @@
 
 	require_once 'app/init.php';
 
-	$itemsQuery = $db->prepare("
-		SELECT id, name, detail, kendala, due_date, done, progress
-		FROM items
-		WHERE user = :user AND delete_status='0'
-	");
-
-	$itemsQuery->execute([
-		'user' => $_SESSION['ID']
-	]);
-
-	$items = $itemsQuery->rowCount() ? $itemsQuery : [];
 
 ?>
 
-
+<?php
+if(isset($_POST['btn-submit'])){
+  $_SESSION['valuejudul'] = $_POST['valuejudul'];
+}
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -41,7 +34,56 @@
 
 		<div class="list">
 			<h1 class="header">Input To Do List</h1>
+      <form action="todo.php" method="post">
+          <table border="0">
+              <tr>
+                  <th>Filter Search</th>
+              </tr>
+              <tr>
+                  <td>Pilih Filter Divisi</td>
+                  <td></td>
+                  <td>
+                      <select name="valuejudul">
+                          <option name="judul" value="All">All</option>
+                          <?php
+                            require_once 'app/connect.php';
+                            $id=$_SESSION['ID'];
+                            $judul="SELECT name FROM items WHERE user=$id AND delete_status='0'";
+                            $query2 = $con->query($judul);
+                            while ($row = $query2->fetch_assoc()) {
+                              $judul=$row['name'];
+                              echo "<option name='judul' value='". $judul."'>" . $judul. "</option>\n";
+                            }
 
+                           ?>
+                      </select>
+                  </td>
+              </tr>
+              <td>
+                  <input type="submit" name="btn-submit" value="Search"/>
+              </td>
+          </table>
+          </form>
+      <?php
+      $sqlitems = "SELECT id, name, detail, kendala, due_date, done, progress FROM items WHERE user = :user AND delete_status='0' ";
+
+       if (strlen($_SESSION['valuejudul'])>=1) {
+            if ($_SESSION['valuejudul']=='All') {
+              $sqlitems .= " ";
+            }else {
+              $judul=$_SESSION['valuejudul'];
+              $sqlitems .= "AND name='$judul' ";
+            }
+        }
+      	$itemsQuery = $db->prepare($sqlitems);
+
+      	$itemsQuery->execute([
+      		'user' => $_SESSION['ID']
+      	]);
+
+      	$items = $itemsQuery->rowCount() ? $itemsQuery : [];
+
+       ?>
 			<?php if(!empty($items)): ?>
 			<ul class="items">
 				<?php foreach($items as $item): ?>
