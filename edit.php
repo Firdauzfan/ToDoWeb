@@ -12,7 +12,7 @@
   require_once 'app/connect.php';
 
 	$itemsQuery = $db->prepare("
-		SELECT name, kendala, due_date, done, progress, id
+		SELECT name, detail, kendala, due_date, done, progress, id
 		FROM items
 		WHERE id = :id
 	");
@@ -47,8 +47,9 @@
 			<form class="item-add" action="editsubmit.php" method="POST">
         <?php foreach($items as $item): ?>
 				<input type="text" name="name" class="input" placeholder="Tulis To Do List" autocomplete="off" required value="<?php echo parse($item['name']); ?>">
+        <input type="text" name="detail" class="input" placeholder="Tulis Detail To Do List" autocomplete="off" required value="<?php echo parse($item['detail']); ?>">
         <input type="text" name="kendala" class="input" placeholder="Kendala yang ada atau akan ada" autocomplete="off" required value="<?php echo parse($item['kendala']); ?>">
-        <input type="number" min="0" max="100" step="5" name="progress" class="input" placeholder="Total Progress" autocomplete="off" required value="<?php echo parse($item['progress']); ?>">
+        <input type="number" min="0" max="100" step="1" name="progress" class="input" placeholder="Total Progress" autocomplete="off" required value="<?php echo parse($item['progress']); ?>">
         <input type="date" class="input" name="due_date" required value="<?php echo $item['due_date']; ?>">
         <input type="hidden" name="iditem" value="<?php echo $item['id']; ?>"">
         <?php endforeach; ?>

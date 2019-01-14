@@ -3,6 +3,8 @@
   // Cek Login Apakah Sudah Login atau Belum
   if (!isset($_SESSION['ID'])){
     header("location: index.php");
+  }else if ($_SESSION['username']!='admin'){
+    header('location:todo.php');
   }
 
   $submit_id = $_GET['id'];
@@ -10,7 +12,7 @@
 	require_once 'app/init.php';
 
   $itemsQuery = $db->prepare("
-    SELECT id, name, kendala, due_date, done
+    SELECT id, name,detail, kendala, due_date,progress, done
     FROM items
     WHERE user = :user AND delete_status='0'
   ");
@@ -28,13 +30,23 @@
   $usersQuery->execute();
 
   $users = $usersQuery->rowCount() ? $usersQuery : [];
+
+  $usersselfQuery = $db->prepare("
+    SELECT * FROM users Where id_pegawai= :id
+  ");
+
+  $usersselfQuery->execute([
+    'id' => $submit_id
+  ]);
+
+  $usersself = $usersselfQuery->rowCount() ? $usersselfQuery : [];
 ?>
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>VIO Absensi | Dashboard</title>
+  <title>VIO To Do List | Dashboard</title>
 
 	<link href="http://fonts.googleapis.com/css?family=Shadows+Into+Light+Two" rel="stylesheet">
 	<link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -63,17 +75,23 @@ include('sidebar.php');
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="list">
-  			<h1 class="header">Input To Do List</h1>
+        <?php foreach($usersself as $useritself): ?>
+  			<h1 class="header">Input To Do List => <a href="graphemployee.php?id=<?php echo $useritself['id_pegawai']; ?>"><?php echo $useritself['username']; ?></a> </h1>
+        <?php endforeach; ?>
 
   			<?php if(!empty($items)): ?>
   			<ul class="items">
   				<?php foreach($items as $item): ?>
 
   				<li>
-            <h3 class="header">To Do list</h3>
+            <h3 class="header">To Do list <?php echo $item['user_name']; ?></h3>
   					<span class="item<?php echo $item['done'] ? ' done' : ''?>"> <?php echo parse($item['name']); ?> <br> <br></span>
+            <h3 class="header">Detail To Do list</h3>
+  					<span class="item<?php echo $item['done'] ? ' done' : ''?>"> <?php echo parse($item['detail']); ?> <br> <br></span>
             <h3 class="header">Kendala yang Ada atau Akan Ada</h3>
             <span class="item<?php echo $item['done'] ? ' done' : ''?>"> <?php echo parse($item['kendala']); ?> <br> <br></span>
+            <h3 class="header">Progress</h3>
+            <span class="item<?php echo $item['done'] ? ' done' : ''?>"> <?php echo parse($item['progress']); ?> <br> <br></span>
             <h3 class="header">Due Date</h3>
             <span class="item<?php echo $item['done'] ? ' done' : ''?>"> <?php echo parse($item['due_date']); ?> <br> <br></span>
 

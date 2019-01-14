@@ -3,6 +3,8 @@
   // Cek Login Apakah Sudah Login atau Belum
   if (!isset($_SESSION['ID'])){
     header("location: index.php");
+  }else if ($_SESSION['username']!='admin'){
+    header('location:todo.php');
   }
 
 	require_once 'app/init.php';
@@ -29,7 +31,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>VIO Absensi | Dashboard</title>
+  <title>VIO To Do List | Dashboard</title>
 
 	<link href="http://fonts.googleapis.com/css?family=Shadows+Into+Light+Two" rel="stylesheet">
 	<link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">

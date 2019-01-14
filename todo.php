@@ -10,7 +10,7 @@
 	require_once 'app/init.php';
 
 	$itemsQuery = $db->prepare("
-		SELECT id, name, kendala, due_date, done, progress
+		SELECT id, name, detail, kendala, due_date, done, progress
 		FROM items
 		WHERE user = :user AND delete_status='0'
 	");
@@ -48,6 +48,8 @@
 				<li>
           <h3 class="header">To Do list <?php echo $item['user_name']; ?></h3>
 					<span class="item<?php echo $item['done'] ? ' done' : ''?>"> <?php echo parse($item['name']); ?> <br> <br></span>
+          <h3 class="header">Detail To Do list</h3>
+					<span class="item<?php echo $item['done'] ? ' done' : ''?>"> <?php echo parse($item['detail']); ?> <br> <br></span>
           <h3 class="header">Kendala yang Ada atau Akan Ada</h3>
           <span class="item<?php echo $item['done'] ? ' done' : ''?>"> <?php echo parse($item['kendala']); ?> <br> <br></span>
           <h3 class="header">Progress</h3>
@@ -71,8 +73,9 @@
       <p>Input New To Do List</p>
 			<form class="item-add" action="add.php" method="POST">
 				<input type="text" name="name" placeholder="Tulis To Do List" class="input" autocomplete="off" required>
+        <input type="text" name="detail" placeholder="Tulis Detail To Do List" class="input" autocomplete="off" required>
         <input type="text" name="kendala" placeholder="Kendala yang ada atau akan ada" class="input" autocomplete="off" required>
-        <input type="number" min="0" max="100" step="5" name="progress" placeholder="Total Progress" class="input" autocomplete="off" required>
+        <input type="number" min="0" max="100" step="1" name="progress" placeholder="Total Progress" class="input" autocomplete="off" required>
         <input type="date" class="input" name="due_date" required>
 				<input type="submit" value="Add" class="submit">
         <a href="logout.php" class="btn btn-default btn-flat">Logout</a>
