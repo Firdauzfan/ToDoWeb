@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jan 14, 2019 at 08:39 AM
+-- Generation Time: Jan 14, 2019 at 11:39 AM
 -- Server version: 5.7.24-0ubuntu0.18.04.1
 -- PHP Version: 7.2.10-0ubuntu0.18.04.1
 
@@ -31,12 +31,21 @@ CREATE TABLE `items` (
   `name` longtext CHARACTER SET cp1250 NOT NULL,
   `kendala` longtext NOT NULL,
   `due_date` date NOT NULL,
+  `progress` int(2) NOT NULL,
   `user` varchar(50) DEFAULT NULL,
   `user_name` varchar(50) NOT NULL,
   `done` tinyint(1) DEFAULT NULL,
   `delete_status` tinyint(4) NOT NULL,
   `created` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `items`
+--
+
+INSERT INTO `items` (`id`, `name`, `kendala`, `due_date`, `progress`, `user`, `user_name`, `done`, `delete_status`, `created`) VALUES
+(1, 'GUI Testing', 'Hello tes', '2019-01-22', 75, '081567920578', 'Firdauz Fanani', 0, 0, '2019-01-14 09:59:25'),
+(2, 'Testing', 'Test hell', '2019-01-16', 100, '081567920578', 'Firdauz Fanani', 0, 0, '2019-01-14 10:56:22');
 
 -- --------------------------------------------------------
 
@@ -93,7 +102,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `users`
 --

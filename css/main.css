@@ -37,7 +37,7 @@ a {
 	list-style-type: none;
 }
 
-.done-button:hover, 
+.done-button:hover,
 .undone-button:hover,
 .delete-button:hover {
 	opacity: 1;
@@ -47,7 +47,7 @@ a {
 	text-decoration:line-through;
 }
 
-.items li, 
+.items li,
 .item-add .input {
 	border: 0;
 	border-bottom: 1px dashed #ccc;
@@ -73,6 +73,18 @@ a {
 	float: right;
 }
 
+.edit-button {
+	display: inline-block;
+	font-size: 0.8em;
+	background-color: #FF1919;
+	color: yellow;
+	padding: 3px 6px;
+	border: 0px;
+	opacity: 0.6;
+	float: right;
+	margin-left: 3%;
+}
+
 .delete-button {
 	display: inline-block;
 	font-size: 0.8em;
@@ -83,6 +95,8 @@ a {
 	opacity: 0.6;
 	float: right;
 }
+
+
 
 .undone-button {
 	margin-left: 20px;

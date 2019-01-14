@@ -10,7 +10,7 @@
 	require_once 'app/init.php';
 
 	$itemsQuery = $db->prepare("
-		SELECT id, name, kendala, due_date, done
+		SELECT id, name, kendala, due_date, done, progress
 		FROM items
 		WHERE user = :user AND delete_status='0'
 	");
@@ -50,9 +50,12 @@
 					<span class="item<?php echo $item['done'] ? ' done' : ''?>"> <?php echo parse($item['name']); ?> <br> <br></span>
           <h3 class="header">Kendala yang Ada atau Akan Ada</h3>
           <span class="item<?php echo $item['done'] ? ' done' : ''?>"> <?php echo parse($item['kendala']); ?> <br> <br></span>
+          <h3 class="header">Progress</h3>
+          <span class="item<?php echo $item['done'] ? ' done' : ''?>"> <?php echo parse($item['progress']); ?> <br> <br></span>
           <h3 class="header">Due Date</h3>
           <span class="item<?php echo $item['done'] ? ' done' : ''?>"> <?php echo parse($item['due_date']); ?> <br> <br></span>
 					<a class="delete-button" href="mark.php?as=delete&item=<?php echo $item['id']; ?>">Delete</a>
+          <a class="edit-button" href="edit.php?item=<?php echo $item['id']; ?>">Edit</a>
 					<?php if(!$item['done']): ?>
 						<a class="done-button" href="mark.php?as=done&item=<?php echo $item['id']; ?>">Mark as done</a>
 					<?php else: ?>
@@ -69,6 +72,7 @@
 			<form class="item-add" action="add.php" method="POST">
 				<input type="text" name="name" placeholder="Tulis To Do List" class="input" autocomplete="off" required>
         <input type="text" name="kendala" placeholder="Kendala yang ada atau akan ada" class="input" autocomplete="off" required>
+        <input type="number" min="0" max="100" step="5" name="progress" placeholder="Total Progress" class="input" autocomplete="off" required>
         <input type="date" class="input" name="due_date" required>
 				<input type="submit" value="Add" class="submit">
         <a href="logout.php" class="btn btn-default btn-flat">Logout</a>
