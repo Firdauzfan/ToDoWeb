@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jan 14, 2019 at 02:08 PM
+-- Generation Time: Jan 15, 2019 at 10:12 AM
 -- Server version: 5.7.24-0ubuntu0.18.04.1
 -- PHP Version: 7.2.10-0ubuntu0.18.04.1
 
@@ -40,15 +40,6 @@ CREATE TABLE `items` (
   `created` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `items`
---
-
-INSERT INTO `items` (`id`, `name`, `detail`, `kendala`, `due_date`, `progress`, `user`, `user_name`, `done`, `delete_status`, `created`) VALUES
-(1, 'GUI Testing', 'tetes', 'Hello tes', '2019-01-22', 75, '081567920578', 'Firdauz Fanani', 0, 0, '2019-01-14 09:59:25'),
-(2, 'Testing', 'testes', 'Test hell', '2019-01-16', 100, '081567920578', 'Firdauz Fanani', 0, 0, '2019-01-14 10:56:22'),
-(3, 'Tes harras', 'wadehel testing iki 2', 'heheheh', '2019-01-15', 85, '081567920578', 'Firdauz Fanani', 0, 0, '2019-01-14 11:53:06');
-
 -- --------------------------------------------------------
 
 --
@@ -59,6 +50,7 @@ CREATE TABLE `users` (
   `id` int(11) UNSIGNED NOT NULL,
   `id_pegawai` varchar(30) NOT NULL,
   `username` varchar(50) DEFAULT NULL,
+  `email` varchar(50) NOT NULL,
   `password` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -66,19 +58,19 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `id_pegawai`, `username`, `password`) VALUES
-(1, '1', 'admin', 'vio'),
-(2, '081567920578', 'Firdauz Fanani', 'vio'),
-(3, '089676824961', 'Faza Ghasani', 'vio'),
-(4, '0817737727', 'Riyadi Agung Suharto', 'vio'),
-(5, '085363236007', 'Wahyudi Prasatia', 'vio'),
-(6, '085274521796', 'Muhammad Reiza Syaifullah', 'vio'),
-(7, '085725180999', 'Liza A Barezi', 'vio'),
-(8, '08128552527', 'Vicky Yuliandi Siahaan', 'vio'),
-(9, '081703078960', 'Muhammad Yasir Abdulazis', 'vio'),
-(10, '085224666426', 'Dwi Prasetyo', 'vio'),
-(11, '081917558038', 'Imam Sulthon', 'vio'),
-(12, '0895802914769', 'Angga', 'vio');
+INSERT INTO `users` (`id`, `id_pegawai`, `username`, `email`, `password`) VALUES
+(1, '1', 'admin', 'admin@gspe.co.id', 'vio'),
+(2, '205017793', 'Firdauz Fanani', 'firdauzfanani@gmail.com', 'vio'),
+(3, '723606683', 'Faza Ghasani', 'fazaghassani.96@gmail.com', 'vio'),
+(4, '668662889', 'Riyadi Agung Suharto', 'roy.agoeng@gmail.com', 'vio'),
+(5, '376571445', 'Wahyudi Prasatia', 'wahyudiprasatia3@gmail.com', 'vio'),
+(6, '692286966', 'Muhammad Reiza Syaifullah', 'mreizasyaifullah@gmail.com', 'vio'),
+(7, '644107942', 'Liza A Barezi', 'lizabarezi@gmail.com', 'vio'),
+(8, '764143199', 'Vicky Yuliandi Siahaan', 'vicky.yuliandi.s@gmail.com', 'vio'),
+(9, '252488349', 'Muhammad Yasir Abdulazis', 'rayas143120@gmail.com ', 'vio'),
+(10, '757158209', 'Dwi Prasetyo', 'setyodwipra@gmail.com', 'vio'),
+(11, '670747420', 'Imam Sulthon', 'sulthon.imam@gmail.com ', 'vio'),
+(12, '690578780', 'Angga', 'pradipptaa@gmail.com', 'vio');
 
 --
 -- Indexes for dumped tables
@@ -104,7 +96,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `users`
 --

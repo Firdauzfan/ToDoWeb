@@ -40,7 +40,7 @@ $Pass = $_POST['Pass'];
    	echo "</script>";
  	}else{
 	 //$dept_id =  $_POST['dept_id'];
-	 $sql = mysqli_query($con, "SELECT * FROM users WHERE id_pegawai='$Id_Pegawai' AND password='$Pass'") or die(mysqli_error());
+	 $sql = mysqli_query($con, "SELECT * FROM users WHERE email='$Id_Pegawai' AND password='$Pass'") or die(mysqli_error());
 	 if(mysqli_num_rows($sql) == 0){
 	  echo "<script>alert('ID Pegawai atau Password salah')</script>";
 
