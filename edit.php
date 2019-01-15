@@ -47,7 +47,7 @@
 			<form class="item-add" action="editsubmit.php" method="POST">
         <?php foreach($items as $item): ?>
 				<input type="text" name="name" class="input" placeholder="Tulis To Do List" autocomplete="off" required value="<?php echo parse($item['name']); ?>">
-        <input type="text" name="detail" class="input" placeholder="Tulis Detail To Do List" autocomplete="off" required value="<?php echo parse($item['detail']); ?>">
+        <textarea rows="8" cols="50" name="detail" placeholder="Tulis Detail To Do List" class="input" autocomplete="off" required><?php echo parse($item['detail']); ?></textarea>
         <input type="text" name="kendala" class="input" placeholder="Kendala yang ada atau akan ada" autocomplete="off" required value="<?php echo parse($item['kendala']); ?>">
         <input type="number" min="0" max="100" step="1" name="progress" class="input" placeholder="Total Progress" autocomplete="off" required value="<?php echo parse($item['progress']); ?>">
         <input type="date" class="input" name="due_date" required value="<?php echo $item['due_date']; ?>">

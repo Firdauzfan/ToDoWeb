@@ -91,7 +91,7 @@ if(isset($_POST['btn-submit'])){
           <h3 class="header">To Do list <?php echo $item['user_name']; ?></h3>
 					<span class="item<?php echo $item['done'] ? ' done' : ''?>"> <?php echo parse($item['name']); ?> <br> <br></span>
           <h3 class="header">Detail To Do list</h3>
-					<span class="item<?php echo $item['done'] ? ' done' : ''?>"> <?php echo parse($item['detail']); ?> <br> <br></span>
+					<textarea rows="8" cols="50" class="input <?php echo $item['done'] ? ' done' : ''?>" readonly><?php echo parse($item['detail']); ?> </textarea>
           <h3 class="header">Kendala yang Ada atau Akan Ada</h3>
           <span class="item<?php echo $item['done'] ? ' done' : ''?>"> <?php echo parse($item['kendala']); ?> <br> <br></span>
           <h3 class="header">Progress</h3>
@@ -115,7 +115,8 @@ if(isset($_POST['btn-submit'])){
       <p>Input New To Do List</p>
 			<form class="item-add" action="add.php" method="POST">
 				<input type="text" name="name" placeholder="Tulis To Do List" class="input" autocomplete="off" required>
-        <input type="text" name="detail" placeholder="Tulis Detail To Do List" class="input" autocomplete="off" required>
+        <textarea rows="8" cols="50" name="detail" placeholder="Tulis Detail To Do List" class="input" autocomplete="off" required></textarea>
+        <!-- <input type="text" name="detail" placeholder="Tulis Detail To Do List" class="input" autocomplete="off" required> -->
         <input type="text" name="kendala" placeholder="Kendala yang ada atau akan ada" class="input" autocomplete="off" required>
         <input type="number" min="0" max="100" step="1" name="progress" placeholder="Total Progress" class="input" autocomplete="off" required>
         <input type="date" class="input" name="due_date" required>

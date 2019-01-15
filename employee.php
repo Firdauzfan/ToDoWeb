@@ -130,7 +130,7 @@ include('sidebar.php');
             <h3 class="header">To Do list <?php echo $item['user_name']; ?></h3>
   					<span class="item<?php echo $item['done'] ? ' done' : ''?>"> <?php echo parse($item['name']); ?> <br> <br></span>
             <h3 class="header">Detail To Do list</h3>
-  					<span class="item<?php echo $item['done'] ? ' done' : ''?>"> <?php echo parse($item['detail']); ?> <br> <br></span>
+  					<textarea rows="8" cols="50" class="input <?php echo $item['done'] ? ' done' : ''?>" readonly><?php echo parse($item['detail']); ?> </textarea>
             <h3 class="header">Kendala yang Ada atau Akan Ada</h3>
             <span class="item<?php echo $item['done'] ? ' done' : ''?>"> <?php echo parse($item['kendala']); ?> <br> <br></span>
             <h3 class="header">Progress</h3>
