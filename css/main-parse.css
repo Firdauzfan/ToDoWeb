@@ -26,7 +26,7 @@ a {
 }
 
 .list .header {
-	font-family: "Shadows Into Light Two", cursive;
+	font-family: 'PT Sans Narrow', sans-serif;
 	margin: 0 0 10px 0;
 }
 
@@ -37,7 +37,7 @@ a {
 	list-style-type: none;
 }
 
-.done-button:hover, 
+.done-button:hover,
 .undone-button:hover,
 .delete-button:hover {
 	opacity: 1;
@@ -47,7 +47,7 @@ a {
 	text-decoration:line-through;
 }
 
-.items li, 
+.items li,
 .item-add .input {
 	border: 0;
 	border-bottom: 1px dashed #ccc;
@@ -112,4 +112,3 @@ a {
 .submit:focus {
 	outline-width: 0px;
 }
-

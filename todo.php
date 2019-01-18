@@ -23,8 +23,7 @@ if(isset($_POST['btn-submit'])){
 		<meta charset="UTF-8">
 		<title>To Do list</title>
 
-		<link href="http://fonts.googleapis.com/css?family=Shadows+Into+Light+Two" rel="stylesheet">
-		<link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow" rel="stylesheet">
 
 		<link rel="stylesheet" href="<?php testParsing(); ?>">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -91,7 +90,7 @@ if(isset($_POST['btn-submit'])){
           <h3 class="header">To Do list <?php echo $item['user_name']; ?></h3>
 					<span class="item<?php echo $item['done'] ? ' done' : ''?>"> <?php echo parse($item['name']); ?> <br> <br></span>
           <h3 class="header">Detail To Do list</h3>
-					<textarea rows="8" cols="83" class="item <?php echo $item['done'] ? ' done' : ''?>" readonly><?php echo parse($item['detail']); ?> </textarea>
+					<textarea style="border: none" rows="8" cols="83" class="item <?php echo $item['done'] ? ' done' : ''?>" readonly><?php echo parse($item['detail']); ?> </textarea>
           <h3 class="header">Kendala yang Ada atau Akan Ada</h3>
           <span class="item<?php echo $item['done'] ? ' done' : ''?>"> <?php echo parse($item['kendala']); ?> <br> <br></span>
           <h3 class="header">Progress</h3>
