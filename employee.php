@@ -77,7 +77,7 @@ include('sidebar.php');
                     <th>Filter Search</th>
                 </tr>
                 <tr>
-                    <td>Pilih Filter Divisi</td>
+                      <td>Pilih Filter To Do List</td>
                     <td></td>
                     <td>
                         <select name="valuejudul">
