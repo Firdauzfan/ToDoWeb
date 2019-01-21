@@ -3,8 +3,6 @@ session_start();
 // Cek Login Apakah Sudah Login atau Belum
 if (!isset($_SESSION['ID'])){
   header("location: index.php");
-}else if ($_SESSION['username']!='admin'){
-  header('location:todo.php');
 }
 
 $submit_id = $_GET['id'];

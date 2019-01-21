@@ -32,7 +32,7 @@ if(isset($_POST['btn-submit'])){
 	<body>
 
 		<div class="list">
-			<h1 class="header">Input To Do List</h1>
+			<h1 class="header">Input To Do List => <a href="graphemployee.php?id=<?php echo $_SESSION['ID']; ?>"><?php echo $_SESSION['username']; ?></a> </h1>
       <form action="todo.php" method="post">
           <table border="0">
               <tr>
