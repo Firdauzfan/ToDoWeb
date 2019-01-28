@@ -14,6 +14,7 @@
 
 <?php
 if(isset($_POST['btn-submit'])){
+  $_SESSION['valuejudulproject'] = $_POST['valuejudulproject'];
   $_SESSION['valuejudul'] = $_POST['valuejudul'];
 }
  ?>
@@ -22,7 +23,7 @@ if(isset($_POST['btn-submit'])){
 	<head>
 		<meta charset="UTF-8">
 		<title>To Do list</title>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 		<link href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow" rel="stylesheet">
 
 		<link rel="stylesheet" href="<?php testParsing(); ?>">
@@ -38,6 +39,33 @@ if(isset($_POST['btn-submit'])){
               <tr>
                   <th>Filter Search</th>
               </tr>
+              <tr>
+                  <td>Pilih Filter Project</td>
+                  <td></td>
+                  <td>
+                      <select name="valuejudulproject">
+                          <option name="judulproject" value="All">All</option>
+                          <?php
+                            require_once 'app/connect.php';
+                            $id=$_SESSION['ID'];
+                            $judul="SELECT project FROM items WHERE user=$id AND delete_status='0' AND parentchild='0'";
+                            $query2 = $con->query($judul);
+                            while ($row = $query2->fetch_assoc()) {
+                              $judul=$row['project'];
+                              echo "<option name='judulproject' value='". $judul."'>" . $judul. "</option>\n";
+                            }
+
+                           ?>
+                      </select>
+                  </td>
+              </tr>
+              <td>
+                  <input type="submit" name="btn-submit" value="Search"/>
+              </td>
+          </table>
+          </form>
+      <form action="todo.php" method="post">
+          <table border="0">
               <tr>
                   <td>Pilih Filter To Do List</td>
                   <td></td>
@@ -64,14 +92,20 @@ if(isset($_POST['btn-submit'])){
           </table>
           </form>
       <?php
-      $sqlitems = "SELECT id, name, detail, kendala, due_date, done, progress FROM items WHERE user = :user AND delete_status='0' ";
+      $sqlitems = "SELECT id,project, name, detail, kendala, due_date, done, progress FROM items WHERE user = :user AND delete_status='0' ";
 
-       if (strlen($_SESSION['valuejudul'])>=1) {
-            if ($_SESSION['valuejudul']=='All') {
+       if (strlen($_SESSION['valuejudul'])>=1 || strlen($_SESSION['valuejudulproject'])>=1) {
+            if ($_SESSION['valuejudul']=='All' || $_SESSION['valuejudulproject']=='All') {
               $sqlitems .= " ";
             }else {
-              $judul=$_SESSION['valuejudul'];
-              $sqlitems .= "AND name='$judul' ";
+              if ($_SESSION['valuejudul']) {
+                $judul=$_SESSION['valuejudul'];
+                $sqlitems .= "AND name='$judul' ";
+              }else if ($_SESSION['valuejudulproject']) {
+                $judul=$_SESSION['valuejudulproject'];
+                $sqlitems .= "AND project='$judul' ";
+              }
+
             }
         }
       	$itemsQuery = $db->prepare($sqlitems);
@@ -87,6 +121,8 @@ if(isset($_POST['btn-submit'])){
 			<ul class="items">
 				<?php foreach($items as $item): ?>
 				<li>
+          <h3 class="header">Project</h3>
+          <span class="item<?php echo $item['done'] ? ' done' : ''?>"> <?php echo parse($item['project']); ?> <br> <br></span>
           <h3 class="header">To Do list <?php echo $item['user_name']; ?></h3>
 					<span class="item<?php echo $item['done'] ? ' done' : ''?>"> <?php echo parse($item['name']); ?> <br> <br></span>
           <h3 class="header">Detail To Do list</h3>
@@ -112,7 +148,24 @@ if(isset($_POST['btn-submit'])){
 			<?php endif; ?>
       <br>
       <p>Input New To Do List</p>
+      <select name="valueproject" id="projectid" onchange="selectionchange();">
+          <option name="projectoption" value="New" >New</option>
+          <?php
+            $id=$_SESSION['ID'];
+            $judul="SELECT project FROM items WHERE user=$id AND delete_status='0' AND parentchild='0'";
+            $query2 = $con->query($judul);
+            while ($row = $query2->fetch_assoc()) {
+              $judul=$row['project'];
+              echo "<option name='judul' value='". $judul."'>" . $judul. "</option>\n";
+            }
+
+           ?>
+      </select>
 			<form class="item-add" action="add.php" method="POST">
+
+        <!-- <p id="projectform"></p> -->
+        <input type="text" name="project" id="projectform" placeholder="Project" class="input" autocomplete="off" required autofocus="autofocus">
+        <input type="text" name="parentchild" id="parenchild" hidden class="input" autocomplete="off" required autofocus="autofocus" value="0">
 				<input type="text" name="name" placeholder="Tulis To Do List" class="input" autocomplete="off" required>
         <textarea rows="8" cols="50" name="detail" placeholder="Tulis Detail To Do List" class="input" autocomplete="off" required></textarea>
         <!-- <input type="text" name="detail" placeholder="Tulis Detail To Do List" class="input" autocomplete="off" required> -->
@@ -126,5 +179,33 @@ if(isset($_POST['btn-submit'])){
 		</div>
 
 	</body>
+  <script>
+  function selectionchange()
+    {
+        var e = document.getElementById("projectid");
+        var str = e.options[e.selectedIndex].value;
+        console.log(str);
 
+        if (str !== "New") {
+          document.getElementById('projectform').value = str;
+          document.getElementById("projectform").readOnly = true;
+          document.getElementById('parenchild').value = "1";
+          console.log(document.getElementById('parenchild').value);
+        }else{
+          document.getElementById('projectform').value = str;
+          document.getElementById("projectform").readOnly = false;
+          document.getElementById('parenchild').value = "0";
+          console.log(document.getElementById('parenchild').value);
+        }
+
+    }
+  </script>
+  <!-- <script>
+
+  $("#projectid").on('change',function(){
+      var values = $(this).val();
+       $("#projectform").html(values);
+
+    });
+  </script> -->
 </html>

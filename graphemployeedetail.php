@@ -6,23 +6,25 @@ if (!isset($_SESSION['ID'])){
 }
 
 $submit_id = $_GET['id'];
+$idproject = $_GET['idpro'];
 require_once 'app/init.php';
 
 $itemsQuery = $db->prepare("
-  SELECT id, project, progress
+  SELECT name, progress
   FROM items
-  WHERE user = :user AND delete_status='0' AND parentchild='0'
+  WHERE parentchild='1' AND project=(SELECT project FROM items WHERE user =:user AND delete_status='0' AND id= :id)
 ");
 
 $itemsQuery->execute([
-  'user' => $submit_id
+  'user' => $submit_id,
+  'id' => $idproject
 ]);
 
 $items = $itemsQuery->rowCount() ? $itemsQuery : [];
 
 $itemsdata = array();
 foreach($items as $item){
-   $itemsdata[] = array('label'=>$item['project'], 'y'=>$item['progress'], 'id'=>$item['id'],);
+   $itemsdata[] = array('label'=>$item['name'], 'y'=>$item['progress']);
 }
 
 
@@ -38,7 +40,7 @@ var chart = new CanvasJS.Chart("chartContainer", {
   animationEnabled: true,
   theme: "light2",
   title: {
-    text: "VIO Project"
+    text: "VIO To Do List"
   },
   axisY: {
     maximum: 100,
@@ -50,7 +52,6 @@ var chart = new CanvasJS.Chart("chartContainer", {
   },
   data: [{
     type: "column",
-    click: onClick,
     yValueFormatString: "#,##0\"%\"",
     indexLabel: "{y}",
     indexLabelPlacement: "inside",
@@ -59,9 +60,7 @@ var chart = new CanvasJS.Chart("chartContainer", {
   }]
 });
 chart.render();
-function onClick(e) {
-  window.open("graphemployeedetail.php?id=<?php echo $submit_id; ?>" + "&idpro=" + e.dataPoint.id ,"_self");
-}
+
 }
 </script>
 </head>

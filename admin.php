@@ -10,7 +10,7 @@
 	require_once 'app/init.php';
 
 	$itemsQuery = $db->prepare("
-		SELECT id, name,user_name, kendala, due_date, done,progress,detail
+		SELECT id,project, name,user_name, kendala, due_date, done,progress,detail
 		FROM items WHERE delete_status='0'
 	");
 
@@ -19,7 +19,7 @@
 	$items = $itemsQuery->rowCount() ? $itemsQuery : [];
 
   $usersQuery = $db->prepare("
-    SELECT * FROM users Where username != 'admin'
+    SELECT * FROM users Where username != 'admin' AND deleted_status='0'
   ");
 
   $usersQuery->execute();
@@ -67,6 +67,8 @@ include('sidebar.php');
   				<?php foreach($items as $item): ?>
 
   				<li>
+            <h3 class="header">Project <?php echo $item['user_name']; ?></h3>
+            <span class="item<?php echo $item['done'] ? ' done' : ''?>"> <?php echo parse($item['project']); ?> <br> <br></span>
             <h3 class="header">To Do list <?php echo $item['user_name']; ?></h3>
             <span class="item<?php echo $item['done'] ? ' done' : ''?>"> <?php echo parse($item['name']); ?> <br> <br></span>
             <h3 class="header">Detail To Do list</h3>
