@@ -12,7 +12,7 @@
 	require_once 'app/init.php';
 
   $usersQuery = $db->prepare("
-    SELECT * FROM users Where username != 'admin'
+    SELECT * FROM users Where username != 'admin' AND deleted_status='0'
   ");
 
   $usersQuery->execute();
