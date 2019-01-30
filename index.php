@@ -94,8 +94,8 @@ $Pass = $_POST['Pass'];
 	    }
 	}
 	</script>
-	<script src="js/jquery-1.11.1.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
+	<!-- <script src="js/jquery-1.11.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script> -->
 	<script>
 		!function ($) {
 			$(document).on("click","ul.nav li.parent > a > span.icon", function(){

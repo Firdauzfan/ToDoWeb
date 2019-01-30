@@ -192,7 +192,7 @@ if(isset($_POST['btn-submit'])){
           document.getElementById('parenchild').value = "1";
           console.log(document.getElementById('parenchild').value);
         }else{
-          document.getElementById('projectform').value = str;
+          document.getElementById('projectform').value = " ";
           document.getElementById("projectform").readOnly = false;
           document.getElementById('parenchild').value = "0";
           console.log(document.getElementById('parenchild').value);
