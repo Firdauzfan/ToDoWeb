@@ -41,26 +41,14 @@
 	<body>
 
 		<div class="list">
-			<h1 class="header">Edit To Do List</h1>
-      <select name="valueproject" id="projectid" onchange="selectionchange();">
-          <!-- <option name="projectoption" value="New" >New</option> -->
-          <?php
-            $id=$_SESSION['ID'];
-            $judul="SELECT project FROM items WHERE user=$id AND delete_status='0' AND parentchild='0'";
-            $query2 = $con->query($judul);
-            while ($row = $query2->fetch_assoc()) {
-              $judul=$row['project'];
-              echo "<option name='judul' value='". $judul."'>" . $judul. "</option>\n";
-            }
-
-           ?>
-      </select>
-			<form class="item-add" action="editsubmit.php" method="POST">
+			<h1 class="header">Edit Project</h1>
+			<form class="item-add" action="editsubmitpro.php" method="POST">
         <?php foreach($items as $item): ?>
-        <input type="text" readonly name="project" id="projectform" placeholder="Project" class="input" autocomplete="off" required autofocus="autofocus" value="<?php echo parse($item['project']); ?>">
-        <input type="text" name="parentchild" id="parenchild" hidden class="input" autocomplete="off" required autofocus="autofocus" value="1">
-				<input type="text" name="name" class="input" placeholder="Tulis To Do List" autocomplete="off" required value="<?php echo parse($item['name']); ?>">
-        <textarea rows="8" cols="50" name="detail" placeholder="Tulis Detail To Do List" class="input" autocomplete="off" required><?php echo parse($item['detail']); ?></textarea>
+        <input type="text" name="project" id="projectform" placeholder="Project" class="input" autocomplete="off" required autofocus="autofocus" value="<?php echo parse($item['project']); ?>">
+        <input type="text" name="projectasli" hidden id="projectform" placeholder="Project" class="input" autocomplete="off" required autofocus="autofocus" value="<?php echo parse($item['project']); ?>">
+        <input type="text" name="parentchild" id="parenchild" hidden class="input" autocomplete="off" required autofocus="autofocus" value="0">
+				<input type="text" name="name" class="input" placeholder="Tulis Project Detail" autocomplete="off" required value="<?php echo parse($item['name']); ?>">
+        <textarea rows="8" cols="50" name="detail" placeholder="Tulis Project Detail To Do" class="input" autocomplete="off" required><?php echo parse($item['detail']); ?></textarea>
         <input type="text" name="kendala" class="input" placeholder="Kendala yang ada atau akan ada" autocomplete="off" required value="<?php echo parse($item['kendala']); ?>">
         <input type="number" min="0" max="100" step="1" name="progress" class="input" placeholder="Total Progress" autocomplete="off" required value="<?php echo parse($item['progress']); ?>">
         <input type="date" class="input" name="due_date" required value="<?php echo $item['due_date']; ?>">
@@ -72,16 +60,5 @@
 		</div>
 
 	</body>
-  <script>
-  function selectionchange()
-    {
-        var e = document.getElementById("projectid");
-        var str = e.options[e.selectedIndex].value;
-        console.log(str);
 
-        document.getElementById('projectform').value = str;
-
-
-    }
-    </script>
 </html>

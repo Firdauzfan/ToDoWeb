@@ -32,7 +32,6 @@
 <?php
 if(isset($_POST['btn-submit'])){
   $_SESSION['valuejudulproject'] = $_POST['valuejudulproject'];
-  $_SESSION['valuejudul'] = $_POST['valuejudul'];
 }
  ?>
 <!DOCTYPE html>
@@ -73,7 +72,7 @@ include('sidebar.php');
   			<h1 class="header">Input To Do List => <a href="graphemployee.php?id=<?php echo $useritself['id_pegawai']; ?>"><?php echo $useritself['username']; ?></a> </h1>
         <?php endforeach; ?>
 
-        <form action="employee.php?id=<?php echo $submit_id; ?>" method="post">
+        <form action="employeepro.php?id=<?php echo $submit_id; ?>" method="post">
               <table border="0">
                   <tr>
                       <th>Filter Search</th>
@@ -103,44 +102,14 @@ include('sidebar.php');
                   </td>
               </table>
               </form>
-          <form action="employee.php?id=<?php echo $submit_id; ?>" method="post">
-              <table border="0">
-                  <tr>
-                      <td>Pilih Filter To Do List</td>
-                      <td></td>
-                      <td>
-                      <select name="valuejudul">
-                          <option name="judul" value="All">All</option>
-                          <?php
-                            require_once 'app/connect.php';
-
-                            $judul="SELECT name FROM items WHERE user=$submit_id AND delete_status='0' AND parentchild='1'";
-                            $query2 = $con->query($judul);
-                            while ($row = $query2->fetch_assoc()) {
-                              $judul=$row['name'];
-                              echo "<option name='judul' value='". $judul."'>" . $judul. "</option>\n";
-                            }
-
-                           ?>
-                      </select>
-                      </td>
-                  </tr>
-                  <td>
-                      <input type="submit" name="btn-submit" value="Search"/>
-                  </td>
-              </table>
-              </form>
           <?php
-          $sqlitems = "SELECT id, project, name, detail, kendala, due_date, done, progress FROM items WHERE user = :user AND delete_status='0' AND parentchild='1'";
+          $sqlitems = "SELECT id, project, name, detail, kendala, due_date, done, progress FROM items WHERE user = :user AND delete_status='0' AND parentchild='0' ";
 
-           if (strlen($_SESSION['valuejudul'])>=1 || strlen($_SESSION['valuejudulproject'])>=1) {
-                if ($_SESSION['valuejudul']=='All' || $_SESSION['valuejudulproject']=='All') {
+           if (strlen($_SESSION['valuejudulproject'])>=1) {
+                if ($_SESSION['valuejudulproject']=='All') {
                   $sqlitems .= " ";
                 }else {
-                  if ($_SESSION['valuejudul']) {
-                    $judul=$_SESSION['valuejudul'];
-                    $sqlitems .= "AND name='$judul' ";
-                  }else if ($_SESSION['valuejudulproject']) {
+                  if ($_SESSION['valuejudulproject']) {
                     $judul=$_SESSION['valuejudulproject'];
                     $sqlitems .= "AND project='$judul' ";
                   }
@@ -164,11 +133,11 @@ include('sidebar.php');
   				<li>
             <h3 class="header">Project <?php echo $item['user_name']; ?></h3>
   					<span class="item<?php echo $item['done'] ? ' done' : ''?>"> <?php echo parse($item['project']); ?> <br> <br></span>
-            <h3 class="header">To Do list <?php echo $item['user_name']; ?></h3>
+            <h3 class="header">Project Detail <?php echo $item['user_name']; ?></h3>
   					<span class="item<?php echo $item['done'] ? ' done' : ''?>"> <?php echo parse($item['name']); ?> <br> <br></span>
-            <h3 class="header">Detail To Do list</h3>
+            <h3 class="header">Detail Project To Do</h3>
   					<textarea style="border: none" rows="8" cols="79" class="item <?php echo $item['done'] ? ' done' : ''?>" readonly><?php echo parse($item['detail']); ?> </textarea>
-            <h3 class="header">Kendala yang Ada atau Akan Ada</h3>
+            <h3 class="header">Kendala Project yang Ada atau Akan Ada</h3>
             <span class="item<?php echo $item['done'] ? ' done' : ''?>"> <?php echo parse($item['kendala']); ?> <br> <br></span>
             <h3 class="header">Progress</h3>
             <span class="item<?php echo $item['done'] ? ' done' : ''?>"> <?php echo parse($item['progress']); ?> <br> <br></span>

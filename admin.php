@@ -11,7 +11,7 @@
 
 	$itemsQuery = $db->prepare("
 		SELECT id,project, name,user_name, kendala, due_date, done,progress,detail
-		FROM items WHERE delete_status='0'
+		FROM items WHERE delete_status='0' AND parentchild='1'
 	");
 
   $itemsQuery->execute();

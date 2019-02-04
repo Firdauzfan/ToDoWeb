@@ -75,7 +75,7 @@ if(isset($_POST['btn-submit'])){
                           <?php
                             require_once 'app/connect.php';
                             $id=$_SESSION['ID'];
-                            $judul="SELECT name FROM items WHERE user=$id AND delete_status='0'";
+                            $judul="SELECT name FROM items WHERE user=$id AND delete_status='0' AND parentchild='1'";
                             $query2 = $con->query($judul);
                             while ($row = $query2->fetch_assoc()) {
                               $judul=$row['name'];
@@ -92,7 +92,7 @@ if(isset($_POST['btn-submit'])){
           </table>
           </form>
       <?php
-      $sqlitems = "SELECT id,project, name, detail, kendala, due_date, done, progress FROM items WHERE user = :user AND delete_status='0' ";
+      $sqlitems = "SELECT id,project, name, detail, kendala, due_date, done, progress FROM items WHERE user = :user AND delete_status='0' AND parentchild='1' ";
 
        if (strlen($_SESSION['valuejudul'])>=1 || strlen($_SESSION['valuejudulproject'])>=1) {
             if ($_SESSION['valuejudul']=='All' || $_SESSION['valuejudulproject']=='All') {
@@ -149,7 +149,7 @@ if(isset($_POST['btn-submit'])){
       <br>
       <p>Input New To Do List</p>
       <select name="valueproject" id="projectid" onchange="selectionchange();">
-          <option name="projectoption" value="New" >New</option>
+          <!-- <option name="projectoption" value="New" >New</option> -->
           <?php
             $id=$_SESSION['ID'];
             $judul="SELECT project FROM items WHERE user=$id AND delete_status='0' AND parentchild='0'";
@@ -162,10 +162,9 @@ if(isset($_POST['btn-submit'])){
            ?>
       </select>
 			<form class="item-add" action="add.php" method="POST">
-
         <!-- <p id="projectform"></p> -->
-        <input type="text" name="project" id="projectform" placeholder="Project" class="input" autocomplete="off" required autofocus="autofocus">
-        <input type="text" name="parentchild" id="parenchild" hidden class="input" autocomplete="off" required autofocus="autofocus" value="0">
+        <input type="text" readonly name="project" id="projectform" placeholder="Project" class="input" autocomplete="off" required autofocus="autofocus" value="<?php echo $judul; ?>">
+        <input type="text" name="parentchild" id="parenchild" hidden class="input" autocomplete="off" required autofocus="autofocus" value="1">
 				<input type="text" name="name" placeholder="Tulis To Do List" class="input" autocomplete="off" required>
         <textarea rows="8" cols="50" name="detail" placeholder="Tulis Detail To Do List" class="input" autocomplete="off" required></textarea>
         <!-- <input type="text" name="detail" placeholder="Tulis Detail To Do List" class="input" autocomplete="off" required> -->
@@ -173,6 +172,8 @@ if(isset($_POST['btn-submit'])){
         <input type="number" min="0" max="100" step="1" name="progress" placeholder="Total Progress" class="input" autocomplete="off" required>
         <input type="date" class="input" name="due_date" required>
 				<input type="submit" value="Add" class="submit">
+        <a href="project.php" class="btn btn-default btn-flat">Input Project</a>
+        <br>
         <a href="logout.php" class="btn btn-default btn-flat">Logout</a>
 			</form>
 
@@ -186,17 +187,8 @@ if(isset($_POST['btn-submit'])){
         var str = e.options[e.selectedIndex].value;
         console.log(str);
 
-        if (str !== "New") {
-          document.getElementById('projectform').value = str;
-          document.getElementById("projectform").readOnly = true;
-          document.getElementById('parenchild').value = "1";
-          console.log(document.getElementById('parenchild').value);
-        }else{
-          document.getElementById('projectform').value = " ";
-          document.getElementById("projectform").readOnly = false;
-          document.getElementById('parenchild').value = "0";
-          console.log(document.getElementById('parenchild').value);
-        }
+        document.getElementById('projectform').value = str;
+
 
     }
   </script>

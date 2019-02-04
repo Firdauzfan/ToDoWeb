@@ -7,7 +7,7 @@
 
     	<?php foreach($users as $user): ?>
         <li>
-          <a href="employee.php?id=<?php echo $user['id_pegawai']; ?>">
+          <a href="lihatemploy.php?id=<?php echo $user['id_pegawai']; ?>">
             <i class="fa fa-users"></i> <span> <?php echo $user['username']; ?></span>
             <span class="pull-right-container">
             </span>
