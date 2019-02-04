@@ -51,7 +51,7 @@ $Pass = $_POST['Pass'];
 		 if ($_SESSION['username']=='admin'){
 	   echo '<script language="javascript">document.location="admin.php";</script>';
 	 }else{
-		 echo '<script language="javascript">document.location="todo.php";</script>';
+		 echo '<script language="javascript">document.location="pilihproortodo.php";</script>';
 	 }
 	 }
 }
